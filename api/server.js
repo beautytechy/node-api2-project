@@ -2,6 +2,7 @@ const express = require('express');
 const db = require("../data/db.js");
 const server = express();
 server.use(express.json());
+const dbRouter = require('../data/dbRouter.js');
 
 server.get('/', (req, res) => {
     res.send(`<h2>Blog Posts API</h2>`);
@@ -100,4 +101,6 @@ server.put("/api/posts/:id/", (req, res) => {
                 .json({ error: "The post information could not be modified." });
         });
 });
+server.use('/api/posts', dbRouter)
+
 module.exports = server; 
