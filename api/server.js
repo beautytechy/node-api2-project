@@ -6,15 +6,22 @@ const dbRouter = require('../data/dbRouter.js');
 
 server.get('/', (req, res) => {
     res.send(`<h2>Blog Posts API</h2>`);
-});
-
-server.get("/api/posts", (req, res) => {
-    const message = process.env.MSG || "Hello World";
     
+    const message = process.env.MSG || "Hello World";
+
     db.find()
         .then(posts => {
             console.log(posts);
-            res.status(200).json({message, posts});
+            res.status(200).json({ message, posts });
+        })
+
+});
+
+server.get("/api/posts", (req, res) => {
+    db.find()
+        .then(posts => {
+            console.log(posts);
+            res.status(200).json(posts);
         })
         .catch(err => {
             res
@@ -87,7 +94,7 @@ server.put("/api/posts/:id/", (req, res) => {
         .then(changes => {
             if (changes) {
                 res.status(200).json(changes);
-            } else if(id) {
+            } else if (id) {
                 res
                     .status(404)
                     .json({ message: "The post with the specified ID does not exist.." })
