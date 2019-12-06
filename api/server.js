@@ -9,10 +9,12 @@ server.get('/', (req, res) => {
 });
 
 server.get("/api/posts", (req, res) => {
+    const message = process.env.MSG || "Hello World";
+    
     db.find()
         .then(posts => {
             console.log(posts);
-            res.status(200).json(posts);
+            res.status(200).json({message, posts});
         })
         .catch(err => {
             res
